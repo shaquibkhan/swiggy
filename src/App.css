@@ -1,38 +1,103 @@
-.App {
-  text-align: center;
+.header{
+  display: flex;
+  justify-content: space-around;
+  padding-top: 1rem;
+  background-color: #FFE5B4;
+}
+.header img {
+  max-height: 3rem;
+  width: auto;
+  margin-bottom: .5rem;
+}
+.nav-items {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 3rem;
+}
+.nav-items li {
+  font-family: ProximaNova, arial, Helvetica Neue, sans-serif;
+  font-size: 1rem;
+  gap: 1rem;
+  list-style: none;
+  display: inline-block;
+  padding: 0 20px;
+  color:#db7c38;
+}
+.buttons{
+  display: flex;
+  justify-content: space-around;
+  padding-top: 1rem;
+ 
+}
+.searchbox{
+  
+}
+.searchbox input{
+  width: 30rem;
+  background-color: #353935;
+  color: #fff;
+  border: 1px solid #db7c38;
+  
+}
+.res-card, .shimmer-card {
+  transition: box-shadow .3s;
+  width: 20rem;
+  height: auto;
+  font-family: ProximaNova, arial, Helvetica Neue, sans-serif;
+  font-size: 13px;
+  padding: 5px;
+  margin: 5px;
+}.res-card img, .shimmer-card {
+  width: 14rem;
+  height: 14rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+.body, .shimmer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 5px;
+  padding: 5px;
+}
+.filter {
+  /* padding-top: 2rem;
+  display: flex;
+  gap:8rem;
+  justify-content: center; */
+}
+.card-container{
+  background-color: rgb(29 29 29); 
+}
+.card-desc{
+  /* */
+  color: #fff;
+  width: 14rem;
+  /* background-color: rgba(255,255,255,.4); */
+}
+.shimmer-card{
+  background-color: #ddd;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.rating{
+  background-color: #db7c38;
+  color: #fff;
+  border: 1px solid orange;
+  padding: .3rem;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.time-taken{
+  padding-left: .9rem;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.cost-two{
+  font-size: .8rem;
+  padding-left: .9rem;
+}
+.error-page{
+  height: 100vh;
+  background-color: #db7c38;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  align-items: center;
 }
