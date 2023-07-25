@@ -1,47 +1,59 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
-import { RESTRAUNT_PAGE_API } from '../Constant';
+import React, { useState } from 'react'
+import { CDN_URL} from '../utils/Constant';
 import { useParams } from 'react-router-dom';
+import Shimmer from './Shimmer';
+import useRestrauntMenu from '../utils/useRestrauntMenu';
+import RestrauntCategory from './RestrauntCategory';
 
-const RestrauntMenu = ({ menu }) => {
+const RestrauntMenu = () => {
 
-  const [restrauntPage, setRestrauntPage] = useState([]);
-  const [restrauntPage2, setRestrauntPage2] = useState([]);
-  const {resId} = useParams();
-  console.log("ID",resId)
+  const { resId } = useParams();
+  const [category,setCategory] = useState([]);
+  const [showIndex, setShowIndex] = useState(0);
 
-  useEffect(() => {
-    showRestrauntPage()
-  }, [])
+  const restrauntPage = useRestrauntMenu(resId)
+  console.log("ID", resId)
 
-  const showRestrauntPage = async () => {
-    const data = await fetch(RESTRAUNT_PAGE_API + resId);
-    const json = await data.json();
-    console.log("JSON", json);
-    console.log("json", json?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card);
-    setRestrauntPage(json?.data?.cards[0]?.card?.card?.info);
-    // setRestrauntPage2(json?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card);
-  }
- 
-  const {name, cuisines, areaName, cloudinaryImageId} = restrauntPage;
-  const {itemCards} = restrauntPage2;
-  console.log("itemcards", itemCards)
 
-  const showItemCards = ()=>{
-    // restrauntPage2.map((res)=> <p>{res.itemCards}</p>
-    console.log("fhfhfhf")
-  }
+  if (restrauntPage === null) return <Shimmer />;
+  const { name, cuisines, areaName, cloudinaryImageId, avgRating } = restrauntPage?.cards[0]?.card?.card?.info
+  const itemCards  = restrauntPage?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards
+
+  const categories = restrauntPage?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((c) => c.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
+
+  console.log("C", categories)
+
+  
   return (
-    <div>
-      <img src={cloudinaryImageId}/>
-      <h5>{name}</h5>
-      <ul>
-        <li>{cuisines}</li>
-        <li>{areaName}</li>
-      </ul>
-      <br/>
-        {/* <p>{itemCards.map((items)=> (<p>{items?.card?.info?.name}</p>))}</p> */}
-        {/* {itemCards[0].card.info.name} */}
+    <div className='menu-items'>
+      <div className='menu-header'>
+        <ul className='list-none'>
+          <li className='menu-name'>{name}</li>
+          <li>{cuisines.join(', ')}</li>
+          <li>{areaName} <span className='menu-page-rating'>{avgRating}</span></li>
+        </ul>
+        <img className='menu-img' src={CDN_URL + cloudinaryImageId} alt='menu-img' />
+      </div>
+
+      <br />
+      <div className='category-items'>
+        {
+          // categories accordian
+          categories.map((category,index)=> 
+          <RestrauntCategory 
+          category={category} 
+          showItems={index === showIndex ? true : false}
+          setShowIndex={()=> setShowIndex(index)}
+          /> )
+        }
+        {/* {categories.map((category) =>
+          <li className='category-none'>
+            <span>{category?.card?.card?.title} ({category?.card?.card?.itemCards.length}) </span>
+            <span>⬇</span>
+          </li>)
+        } */}
+      
+      </div>
     </div>
   )
 }

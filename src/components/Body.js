@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { SWIGGY_API } from '../Constant'
-import RestrauntCard from './RestrauntCard';
+import { SWIGGY_API } from '../utils/Constant'
+import RestrauntCard, { WithInputLabel, withInputLabel } from './RestrauntCard';
 import Shimmer from './Shimmer';
 import { Link, Outlet } from 'react-router-dom';
+import useOnlineStatus from '../utils/useOnlineStatus';
+
+
 const Body = () => {
+   
+    
     const [showCards, setShowCards] = useState([]);
     const [filterRestraunt, setFilterRestraunt] = useState([]);
     const [buttonText, setButtonText] = useState("TOP RATED RESTAURANTS");
     const [searchText, setSearchText] = useState('');
 
+    const RestrauntCardPromoted = withInputLabel(RestrauntCard);
+
     const showData = async () => {
         const data = await fetch(SWIGGY_API);
         const json = await data.json();
-        console.log(json?.data?.cards[2]?.data?.data);
+        // console.log(json?.data?.cards[2]?.data?.data);
         setShowCards(json?.data?.cards[2]?.data?.data?.cards);
         setFilterRestraunt(json?.data?.cards[2]?.data?.data?.cards);
     }
@@ -41,7 +48,11 @@ const Body = () => {
         console.log(restrauName);
         setFilterRestraunt(restrauName);
     }
-
+ // custom hook for onLinseStatus check
+ const showOnline = useOnlineStatus();
+ if(showOnline === false)   
+ return <p>🚫  Looks like you don't have internet connectivitiy!!!</p>
+ 
     return (showCards.length === 0) ? <Shimmer /> : (
 
         <div className='card-container'>
@@ -75,7 +86,8 @@ const Body = () => {
                         <Link
                             key={restaurant.data.id}
                             to={/restrauntMenu/ + restaurant.data.id}>
-                            <RestrauntCard resData={restaurant} />
+                                {(restaurant.data.promoted) ? <RestrauntCardPromoted resData={restaurant}/> :  <RestrauntCard resData={restaurant} /> }
+                            
                         </Link>)
                 }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CDN_URL, RESTRAUNT_PAGE_API } from '../Constant';
+import { CDN_URL, RESTRAUNT_PAGE_API } from '../utils/Constant';
 import { Link } from 'react-router-dom';
 import RestrauntMenu from './RestrauntMenu';
 
@@ -22,5 +22,19 @@ const RestrauntCard = ({ resData }) => {
     </div>
   )
 }
+
+//  Higher Order Function
+export const withInputLabel = (RestrauntCard)=>{
+  return (props)=>{
+    return (
+      <div>
+        <label className='bg-[#000] text-white m-2 p-2 rounded-lg'>Promoted</label>
+        <RestrauntCard {...props}/>
+      </div>
+    )
+  }
+}
+
+
 
 export default RestrauntCard
