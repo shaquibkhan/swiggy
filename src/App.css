@@ -24,6 +24,9 @@
   padding: 0 20px;
   color: #db7c38;
 }
+.no-line{
+  text-decoration: none;
+}
 .buttons {
   display: flex;
   justify-content: space-around;
@@ -173,4 +176,13 @@ border-bottom: 1px solid lightgray;
 .menu-categ-items li:last-child{
   font-size: 12px;
   color: lightgray;
+}
+.category-btn{
+  color: #60B246;
+}
+.price{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

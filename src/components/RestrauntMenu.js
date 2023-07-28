@@ -12,7 +12,7 @@ const RestrauntMenu = () => {
   const [showIndex, setShowIndex] = useState(0);
 
   const restrauntPage = useRestrauntMenu(resId)
-  console.log("ID", resId)
+  // console.log("ID", resId)
 
 
   if (restrauntPage === null) return <Shimmer />;
@@ -21,7 +21,7 @@ const RestrauntMenu = () => {
 
   const categories = restrauntPage?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((c) => c.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
 
-  console.log("C", categories)
+  // console.log("C", categories)
 
   
   return (
