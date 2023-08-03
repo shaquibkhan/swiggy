@@ -186,3 +186,9 @@ border-bottom: 1px solid lightgray;
   justify-content: center;
   align-items: center;
 }
+.price-tag{
+  text-align: center;
+  color: #60B246;
+  font-size: 24px;
+  margin-top: 32px;
+}

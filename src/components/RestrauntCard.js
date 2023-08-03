@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import RestrauntMenu from './RestrauntMenu';
 
 const RestrauntCard = ({ resData }) => {
-  const { name, cloudinaryImageId, cuisines, slaString, costForTwoString, avgRating } = resData?.data;
+  const { name, cloudinaryImageId, cuisines, avgRating } = resData?.info;
 
 
   return (
@@ -15,8 +15,8 @@ const RestrauntCard = ({ resData }) => {
           <h6>{name}</h6>
           <h6>{cuisines.join(", ")}</h6>
           <span className='rating'>{avgRating}</span>
-          <span className='time-taken'>{slaString}</span>
-          <span className='cost-two'>{costForTwoString}</span>
+          {/* <span className='time-taken'>{slaString}</span> */}
+          {/* <span className='cost-two'>{costForTwoString}</span> */}
         </span>
       </div>
     </div>

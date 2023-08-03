@@ -2,6 +2,7 @@ import React from 'react'
 import { CDN_URL } from '../utils/Constant';
 import Price from './Price';
 import { useSelector } from 'react-redux'
+import ItemList from './ItemList';
 
 const Cart = () => {
 
@@ -12,24 +13,13 @@ const Cart = () => {
         <>
             {
                 cartItems.map((cartItems) =>
-                    <div className='accordion-body'>
-
-                        <ul className='menu-categ-items'>
-                            <li>{cartItems?.card?.info?.name}</li>
-                            <li>&#x20b9;{cartItems?.card?.info?.price / 100}</li>
-                            <li>{cartItems?.card?.info?.description}</li>
-                        </ul>
-                        <div>
-                            <img className='category-img' src={CDN_URL + cartItems?.card?.info?.imageId} alt='img' />
-                        </div>
-                    
-                    </div>
-
+                   <ItemList c={cartItems}/>
                 )
                 
             }
             {
-              cartItems.map((items)=> cartItems?.card?.info?.price)
+            
+              <Price items={cartItems}/>
             }
         </>
     )

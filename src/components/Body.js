@@ -19,9 +19,9 @@ const Body = () => {
     const showData = async () => {
         const data = await fetch(SWIGGY_API);
         const json = await data.json();
-        // console.log(json?.data?.cards[2]?.data?.data);
-        setShowCards(json?.data?.cards[2]?.data?.data?.cards);
-        setFilterRestraunt(json?.data?.cards[2]?.data?.data?.cards);
+        console.log("SWIGGY", json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        setShowCards(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        setFilterRestraunt(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     }
 
     useEffect(() => {
@@ -33,7 +33,7 @@ const Body = () => {
     }
 
     const topRated = () => {
-        const filter = filterRestraunt.filter((res) => res.data.avgRating >= 4)
+        const filter = filterRestraunt.filter((res) => res.info.avgRating >= 4)
         setFilterRestraunt(filter);
         setButtonText("SHOW ALL RESTAURANTS ")
 
@@ -44,7 +44,7 @@ const Body = () => {
 
     }
     const searchRestraunt = () => {
-        const restrauName = showCards.filter((res) => res.data.name.toLowerCase().includes(searchText.toLowerCase()));
+        const restrauName = showCards.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()));
         console.log(restrauName);
         setFilterRestraunt(restrauName);
     }
@@ -84,10 +84,9 @@ const Body = () => {
                 {
                     filterRestraunt.map((restaurant) =>
                         <Link
-                            key={restaurant.data.id}
-                            to={/restrauntMenu/ + restaurant.data.id}>
-                                {(restaurant.data.promoted) ? <RestrauntCardPromoted resData={restaurant}/> :  <RestrauntCard resData={restaurant} /> }
-                            
+                            key={restaurant.info.id}
+                            to={/restrauntMenu/ + restaurant.info.id}>
+                                {(restaurant.info.promoted) ? <RestrauntCardPromoted resData={restaurant}/> :  <RestrauntCard resData={restaurant} /> }
                         </Link>)
                 }
 
